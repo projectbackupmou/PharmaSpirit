@@ -242,6 +242,10 @@ img
     border-bottom: none;
 
 }
+.nav_sec.nav_transparent
+{
+  background-color: transparent;
+}
 .nav_inner
 {
 	display: flex;
@@ -1057,3 +1061,147 @@ img
     transition-duration: 0.3s;
     width: 100%;
   }
+
+  /*===== check_result_b_area  ======*/
+  .check_result_b_area
+  {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    background-image: url('../images/check_result_border.png');
+    padding: 120px 50px 30px;
+       background-repeat: no-repeat;
+       min-height: 366px;
+       justify-content: center;
+    display: flex;
+    position: relative;
+  }
+  .check_result_b_area .media-body
+  {
+    padding-left: 30px;
+  }
+  .check_result_b_area   .media-body p {
+    font-size: 17px;
+    color: #000;
+    margin: 0 0 7px 0;
+    font-weight: 600;
+  }
+  .check_result_b_area .media-body h5 {
+    font-size: 17px;
+    color: #2360ce;
+    margin: 0 0 7px 0;
+    font-weight: 600;
+  }
+  .check_result_b_area .media-body h5 i
+  {
+    color: #ad1a38;
+  }
+  .check_result_b_area .go_back_btn
+  {
+    background-color: #2461d1;
+    display: inline-block;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 15px;
+    border-radius: 4px;
+    transition-duration: 0.3s;
+    margin-top: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -15px;
+    text-align: center;
+    width: 110px;
+  }
+  .check_result_b_area .lt-common-title
+  {
+    position: absolute;
+    left: -13px;
+    top: -17px;
+  }
+
+  /*==== member signup ===*/
+
+  .member_signup_left h2
+  {
+    font-size: 27px;
+    color: #185ece;
+    margin: 0 0 16px 0;
+  }
+  .member_signup_left .register_btn
+  {
+
+  }
+  .member_signup_right h3
+  {
+    font-size: 27px;
+    color: #185ece;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  .m_signup_btn
+  {
+        display: block;
+        width: 100%;
+    padding: 6px 26px;
+    color: #fff;
+    background-color: #88192f;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+   .m_signup_btn:hover
+   {
+    color: #fff;
+   }
+
+   #expired_account_modal
+   {
+
+   }
+   #expired_account_modal .modal-body
+   {
+      padding: 0;
+      position: relative;
+   }
+   #expired_account_modal .modal-body .close {
+    opacity: 1;
+    color: #88192f;
+    font-size: 33px;
+    outline: none;
+    box-shadow: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: #ccc;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    text-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+   .ex_acc_modal_top
+   {
+    padding: 20px 10px;
+   }
+   .ex_acc_modal_bottom
+   {
+    background-color: #9c1c35;
+     margin-top: 10px;
+   }
+   .ex_acc_modal_bottom p
+   {
+    font-size: 17px;
+    color: #fff;
+    padding: 10px 10px;
+        margin: 0;
+   
+   }
+
+.member_signup_left {
+    padding-top: 20px;
+}

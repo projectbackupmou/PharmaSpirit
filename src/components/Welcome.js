@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 // import "../App.css"
-import axios from "axios"
-import { Link } from "react-router-dom"
+// import axios from "axios"
+// import { Link } from "react-router-dom"
 
-import Footer from './Footer'
-import mainBanner from "../images/home_bg.jpg"
+// import Footer from './Footer'
+import mainBanner from "../images/bg_new.jpg"
 //import SuccessModel from "./modal/SuccessModel";
 import logo from "../images/logo.png"
 
@@ -28,24 +28,24 @@ class Welcome extends Component {
 
         })
     }
-    handleSubmit = (e, val) => {
-        //alert("hi")
-        this.setState({
-            successModelOpen: true,
-        })
-        e.preventDefault();
+    // handleSubmit = (e, val) => {
+    //     //alert("hi")
+    //     this.setState({
+    //         successModelOpen: true,
+    //     })
+    //     e.preventDefault();
 
-        axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/index.php/PharmaApi/newLogin", JSON.stringify(this.state))
-            .then(res => {
-                //console.log(res.data.msg)
-                let resData
-                return this.setState({ resData: res.data })
+    //     axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/index.php/PharmaApi/newLogin", JSON.stringify(this.state))
+    //         .then(res => {
+    //             //console.log(res.data.msg)
+    //             let resData
+    //             return this.setState({ resData: res.data })
 
-            })
-            .catch(err => console.log(err.message))
-        //console.log(this.state)
+    //         })
+    //         .catch(err => console.log(err.message))
+    //     //console.log(this.state)
 
-    }
+    // }
 
     // componentDidMount() {
     //     axios.get("https://elvirainfotechcloud.com/questionbank/admin/index.php/api/Student/login")
@@ -61,65 +61,74 @@ class Welcome extends Component {
 
     render() {
 
-        let successModelClose = () => { this.setState({ successModelOpen: false }) }
-        console.log(this.state.resData)
+        // let successModelClose = () => { this.setState({ successModelOpen: false }) }
         return (
 
-            <Fragment>
-                <nav class="nav_sec" id="sticky-wrap">
+            <>
+
+                <nav class="nav_sec nav_transparent" id="sticky-wrap-">
                     <div class="container">
                         <div class="nav_inner">
                             <div class="logo_area">
-                                <div class="logo_box"> <img src={logo} alt="" /> </div>
+                                <div class="logo_box"> <a class="" href="index.html"><img src={logo} alt="" /></a> </div>
                             </div>
+
                         </div>
                     </div>
                 </nav>
-                <section className="banner_sec">
-                    <img src={mainBanner} alt="" className="banner_img" />
-                    <div className="banner_overlay">
-                        <div className="over_content">
-                            <div className="container">
-
-                                {/* <div className="row">
-                                    <div className="col-md-8">
-                                        <h2>The beautiful thing about learningis nobody can take it away from you.</h2>
-                                        <button type="button" className="btn btn-primary btn-sm">Register</button>
-                                    </div>
-                                    <div className="col-6 col-md-4">
-                                        <form onSubmit={this.handleSubmit}>
-
-                                            <input type="text" placeholder="UserName" name="username" value={this.state.username} onChange={this.handelChange} />
-
-                                            <input type="text" placeholder="Password" name="password" value={this.state.password} onChange={this.handelChange} />
-                                            {/* <SuccessModel show={this.state.successModelOpen} onHide={successModelClose} name={this.state.username} password={this.state.password} resData={this.state.resData} /> */}
-
-                                            {/* <button type="submit" className="btn btn-primary btn-lg btn-block" value="submit"   >
-                                                login </button>
-                                        </form> */}
-
-                                        {/* <input type="submit" value="Submit" /> */}
-
-                                        {/* <span>or</span>
-                                        <Link to={"/signup"}>
-                                            <button type="button" class="btn btn-secondary btn-lg btn-block">sign up</button>
-                                        </Link>
-                                    </div> */}
-
-                                {/* </div>  */}
-
+                <div class="body_wrapper"></div>
+                <section class="landing_home_sec vh_height" style={{ "background": `url(${mainBanner})` }}>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-12">
+                                <div class="member_signup_left">
+                                    <h2>This service is <strong>ONLY</strong> available to PharmaSpirit MCQ Pre Course participants</h2>
+                                    <a href="" class="register_btn blue_btn_comman">Register</a>
+                                </div>
                             </div>
+                            <div class="col-lg-5 col-md-12 md_res_mar_top_30">
+                                <div class="member_signup_right">
+                                    <h3>PharmaSpirit Members</h3>
+                                    <form action="" class="signup_form">
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Username" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group btn_box">
+                                                        <button type="submit" class="btn btn_f_submit blue_btn_comman" style={{ "width": "100%" }}>Login</button>
+                                                    </div>
+                                                    <div class="form-group btn_box">
+                                                        <button type="submit" class="btn btn_f_submit m_signup_btn">Signup</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
+
                 </section>
-
-
-                {/* <Footer /> */}
-
-            </Fragment>
+            </>
         )
     }
-
 }
 
 export default Welcome
+

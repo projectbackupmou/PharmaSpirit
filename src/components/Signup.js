@@ -129,94 +129,74 @@ class Signup extends Component {
         const { isPasswordShow,first_nameError,last_nameError,emailError,passwordError,phoneError} = this.state;
         return (
             <Fragment>
-                  <nav class="nav_sec" id="sticky-wrap">
-                    <div class="container">
-                        <div class="nav_inner">
-                            <div class="logo_area">
-                                <div class="logo_box"> <img src={logo} alt="" /> </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+   <nav class="nav_sec nav_transparent" id="sticky-wrap-">
+  <div class="container">
+    <div class="nav_inner">
+      <div class="logo_area">
+        <div class="logo_box"> <a class="" href="index.html"><img src={logo} alt="" /></a> </div>
+      </div>
+      {/* <!-- <div class="nav_area">
+        <div class="stellarnav">
+          <ul>
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">New Questions</a></li>
+            <li><a href="">Question Bank</a></li>
+            <li><a href="">My Progress</a></li>
+            <li><a href="">Flagged Questions</a></li>
+            <li><a href="">Log out</a></li>
+          </ul>
+        </div>
+      </div> --> */}
+    </div>
+  </div>
+</nav>
                 {/* <!-- landing_home_sec --> */}
                 <section className="landing_home_sec vh_height" style={{ "background": `url(${homeImg})`}}> 
                 
-                    <div className="container">
-                        <div className="signup_area">
-                            <h3>Sign up</h3>
-                            <form action="" method="POST" className="signup_form" onSubmit={this.handleSubmit}>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                           
-                                                <input type="text" className="form-control" placeholder="First Name" name="first_name" value={this.state.first_name} onChange={this.handelChange}>
-                                                </input>
-{/*                                                
-                                                {errors.first_name.length >0 &&
-                                                    <span className='error'>{errors.first_name}</span>} */}
-                                                    <div style={{color:"red", fontSize:"12px"}}>{first_nameError}</div>
-                                                   <div> 
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" className="form-control" placeholder="Last Name" name="last_name"  value={this.state.last_name} onChange={this.handelChange}>
-                                            </input>
-                                            <div style={{color:"red", fontSize:"12px"}}>{last_nameError}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div>
-                                                <input type="email" className="form-control" placeholder="Email" name="email"  value={this.state.email} onChange={this.handelChange}>
-                                                </input>
-                                                <div style={{color:"red", fontSize:"12px"}}>{emailError}</div>
-                                                {/* {errors.email.length > 0 &&
-                                                    <span className='error'>{errors.email}</span>} */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div>
-                                                <input type="text" className="form-control" placeholder="Phone Number" name="phone"  value={this.state.phone} onChange={this.handelChange}>
-                                                </input>
-                                                <div style={{color:"red", fontSize:"12px"}}>{phoneError}</div>
-                                                {/* {errors.phone.length > 0 &&
-                                                    <span className='error'>{errors.phone}</span>} */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type={isPasswordShow?"text":"password"} className="form-control" placeholder="Password" placeholder=" Password" name="password"  value={this.state.password} onChange={this.handelChange}>
-                                            
-                                            </input>
-                                            <div style={{color:"red", fontSize:"12px"}}>{passwordError}</div>
-                                            {/* <i className={`fas ${isPasswordShow?"fa-eye":"fa-eye-slash"}`} onClick={this.togglePasword}></i> */}
-                                            
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="form-group btn_box">
-                                            {/* {this.state.show?(<Link to="/thankyou"> */}
-                                                <button type="submit"  className="btn btn_f_submit blue_btn_comman" >Submit</button>
-                                            {/* </Link>) */}
-                                            {/* :( <button type="submit"  className="btn btn_f_submit blue_btn_comman" >Submit</button>)} */}
-                                           
-                                                 
-                                            
-                                         
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    {/* <Thankyou/> */}
-                </section>
+              
+  <div class="container">
+    <div class="signup_area">
+      <h3>Sign up</h3>
+      <form action="" class="signup_form">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="First Name"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Last Name"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Email"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Password"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Phone Number"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+              <div class="form-group btn_box">
+                <button type="submit" class="btn btn_f_submit blue_btn_comman">Submit</button>
+              </div>
+              </div>
+            </div>
+            </form>
+       {/* <!--  <a href="" class="thanks_continue_btn blue_btn_comman">Continue</a> --> */}
+    </div>
+  </div>
+</section>
+
+                                   
 
                 {/* my work */}
                 {/* <div className="sign_up">
