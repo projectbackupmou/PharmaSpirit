@@ -113,17 +113,17 @@ class Signup extends Component {
        //alert("ji")
         e.preventDefault();
         //this.dataPost()
-        const isvalidate = this.validation();
-        if(isvalidate){
+        //const isvalidate = this.validation();
+       // if(isvalidate){
             // this.dataPost()
-            // console.log(this.state)
+             console.log(this.state)
         //   <Redirect to='/thankyou'></Redirect>
-        this.props.history.push(`/thankyou`);
+       // this.props.history.push(`/thankyou`);
             
             // this.setState({show:true})
         }
      
-      }
+      
 
     render() {
         const { isPasswordShow,first_nameError,last_nameError,emailError,passwordError,phoneError} = this.state;
@@ -194,7 +194,7 @@ class Signup extends Component {
                                             
                                             </input>
                                             <div style={{color:"red", fontSize:"12px"}}>{passwordError}</div>
-                                            <i className={`fas ${isPasswordShow?"fa-eye":"fa-eye-slash"}`} onClick={this.togglePasword}></i>
+                                            {/* <i className={`fas ${isPasswordShow?"fa-eye":"fa-eye-slash"}`} onClick={this.togglePasword}></i> */}
                                             
                                         </div>
                                     </div>

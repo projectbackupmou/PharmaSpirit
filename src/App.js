@@ -23,11 +23,6 @@ import FlaggedQuestion from './components/FlaggedQuestion';
 import Dashboard from './components/Dashboard'
 
  class App extends Component {
-
-
-  
- 
-
   render() {
     return (
       
