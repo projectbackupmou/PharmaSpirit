@@ -2,7 +2,7 @@ import React, { Component ,Fragment} from 'react'
 import {Route,Switch} from "react-router-dom"
 // import { Provider } from "react-redux";
 // import store from "./store";
-import "bootstrap/dist/css/bootstrap.min.css"
+//import "bootstrap/dist/css/bootstrap.min.css"
 // import "./stellarnav.css"
 // import "./App.css"
 
@@ -13,13 +13,14 @@ import Error from './components/Error'
 //import Navbar from './components/Navbar'
 // import Footer from './components/Footer'
 //import SuccessModel from './components/modal/SuccessModel'
-import Menu from './components/Menu'
+//import Menu from './components/Dashboard'
 import QuestionMain from './components/question/QuestionMain'
 import QuestionBank from './components/questionBank/QuestionBank'
 import Thankyou from './components/Thankyou';
 import AnsweredQuestion from './components/AnsweredQuestion';
 import MyProgress from './components/MyProgress';
 import FlaggedQuestion from './components/FlaggedQuestion';
+import Dashboard from './components/Dashboard'
 
  class App extends Component {
 
@@ -37,7 +38,7 @@ import FlaggedQuestion from './components/FlaggedQuestion';
         <Route exact path="/" component={Welcome}/>
         {/* <SuccessModel/> */}
         <Route exact path="/signup/" component={Signup}/>
-        <Route exact path="/Menu/" component={Menu}/>
+        <Route exact path="/Dashboard/" component={Dashboard}/>
         <Route exact path="/questionMain/" component={QuestionMain}/>
         <Route exact path="/questionBank/" component={QuestionBank}/>
         <Route  path="/thankyou" component={Thankyou}/>
@@ -45,6 +46,7 @@ import FlaggedQuestion from './components/FlaggedQuestion';
         <Route  path="/myprogress" component={MyProgress}/>
         <Route  path="/flaggedQuestion" component={FlaggedQuestion}/>
         <Route  component={Error}/>
+        
         
         </Switch>
         

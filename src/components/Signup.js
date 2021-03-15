@@ -4,8 +4,8 @@ import axios from "axios"
 import Footer from './Footer';
 import homeImg from "../images/home_bg.jpg"
 import logo from "../images/logo.png"
-import "bootstrap/dist/css/bootstrap.min.css"
- import Thankyou from './Thankyou';
+
+ //import Thankyou from './Thankyou';
 
 
 //const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);

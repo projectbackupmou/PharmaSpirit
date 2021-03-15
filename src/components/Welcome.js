@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 import Footer from './Footer'
 import mainBanner from "../images/home_bg.jpg"
-import SuccessModel from "./modal/SuccessModel";
+//import SuccessModel from "./modal/SuccessModel";
 import logo from "../images/logo.png"
 
 
@@ -92,7 +92,7 @@ class Welcome extends Component {
                                             <input type="text" placeholder="UserName" name="username" value={this.state.username} onChange={this.handelChange} />
 
                                             <input type="text" placeholder="Password" name="password" value={this.state.password} onChange={this.handelChange} />
-                                            <SuccessModel show={this.state.successModelOpen} onHide={successModelClose} name={this.state.username} password={this.state.password} resData={this.state.resData} />
+                                            {/* <SuccessModel show={this.state.successModelOpen} onHide={successModelClose} name={this.state.username} password={this.state.password} resData={this.state.resData} /> */}
 
                                             <button type="submit" className="btn btn-primary btn-lg btn-block" value="submit"   >
                                                 login </button>
