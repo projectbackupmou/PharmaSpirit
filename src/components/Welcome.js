@@ -81,7 +81,7 @@ class Welcome extends Component {
                         <div className="over_content">
                             <div className="container">
 
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-md-8">
                                         <h2>The beautiful thing about learningis nobody can take it away from you.</h2>
                                         <button type="button" className="btn btn-primary btn-sm">Register</button>
@@ -94,19 +94,19 @@ class Welcome extends Component {
                                             <input type="text" placeholder="Password" name="password" value={this.state.password} onChange={this.handelChange} />
                                             {/* <SuccessModel show={this.state.successModelOpen} onHide={successModelClose} name={this.state.username} password={this.state.password} resData={this.state.resData} /> */}
 
-                                            <button type="submit" className="btn btn-primary btn-lg btn-block" value="submit"   >
+                                            {/* <button type="submit" className="btn btn-primary btn-lg btn-block" value="submit"   >
                                                 login </button>
-                                        </form>
+                                        </form> */}
 
                                         {/* <input type="submit" value="Submit" /> */}
 
-                                        <span>or</span>
+                                        {/* <span>or</span>
                                         <Link to={"/signup"}>
                                             <button type="button" class="btn btn-secondary btn-lg btn-block">sign up</button>
                                         </Link>
-                                    </div>
+                                    </div> */}
 
-                                </div>
+                                {/* </div>  */}
 
                             </div>
                         </div>
