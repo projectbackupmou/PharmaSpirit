@@ -7,13 +7,14 @@ import flagged_ques_home from "../images/flagged_ques_home.png"
 // import { Modal, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 import Footer from './Footer'
-import  Navbar  from "./Navbar"
+import logo from "../images/logo.png"
+import Navbar from './Navbar'
 
 export default class Dashboard extends Component {
     render() {
         return (
             <Fragment>
-          <Navbar/>
+  <Navbar/>
           <section class="landing_home_sec vh_height" style={{ "background": `url(${mainBanner})`}}>
 {/* <img src={mainBanner} alt="" className="banner_img" /> */}
   <div class="container">

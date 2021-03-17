@@ -16,8 +16,7 @@ class Welcome extends Component {
         this.state = {
             username: "",
             password: "",
-            successModelOpen: false,
-            resData: ""
+        
 
 
         }
@@ -25,8 +24,9 @@ class Welcome extends Component {
     handelChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-
+          
         })
+       
     }
     // handleSubmit = (e, val) => {
     //     //alert("hi")
@@ -89,18 +89,18 @@ class Welcome extends Component {
                             <div class="col-lg-5 col-md-12 md_res_mar_top_30">
                                 <div class="member_signup_right">
                                     <h3>PharmaSpirit Members</h3>
-                                    <form action="" class="signup_form">
+                                    <form action="" class="signup_form" >
                                         <div class="row">
                                             <div class="col-md-12">
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Username" />
+                                                        <input type="text" class="form-control" name="username" placeholder="Username" value={this.state.username}  onChange={this.handelChange}/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" />
+                                                        <input type="password" class="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.handelChange}/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">

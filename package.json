@@ -1,6 +1,7 @@
 {
   "name": "pharma_spirit",
   "version": "0.1.0",
+  "homepage": "http://pharmaspirit.elvirainfotech.org/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",

@@ -1,19 +1,9 @@
 import React, { Component ,Fragment} from 'react'
 import {Route,Switch} from "react-router-dom"
-// import { Provider } from "react-redux";
-// import store from "./store";
-//import "bootstrap/dist/css/bootstrap.min.css"
-// import "./stellarnav.css"
-// import "./App.css"
-
 
 import Welcome from './components/Welcome'
 import Signup from './components/Signup'
 import Error from './components/Error'
-//import Navbar from './components/Navbar'
-// import Footer from './components/Footer'
-//import SuccessModel from './components/modal/SuccessModel'
-//import Menu from './components/Dashboard'
 import QuestionMain from './components/question/QuestionMain'
 import QuestionBank from './components/questionBank/QuestionBank'
 import Thankyou from './components/Thankyou';
