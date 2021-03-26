@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Link, Redirect } from "react-router-dom"
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'
 import axios from "axios"
 import Footer from './Footer';
 import homeImg from "../images/home_bg.jpg"
@@ -8,19 +10,28 @@ import logo from "../images/logo.png"
 //import Thankyou from './Thankyou';
 
 
-//const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 //const phoneRex = RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)
 class Signup extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-     first_name:"",
-     last_name:"",
-     email:"",
-    
-     password:"",
-     phone:""
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      phone: "",
+      error: {
+        first_nameError: '',
+        last_nameError: '',
+        emailError: "",
+        passwordError: "",
+        phone: ""
+      },
+      fristname_blank:"",
+      phone_blank:""
+
 
     }
 
@@ -30,18 +41,67 @@ class Signup extends Component {
 
 
   handelChange = (e) => {
+    const { error } = this.state
+
+    const { name, value } = e.target;
+    // console.log(e.target.value)
     e.preventDefault();
+    this.setState({ name: value })
+    // this.validation();
+    switch (name) {
+      // case "first_name":
+      //   error.first_nameError =
+      //     value.length > 0 ? "" : '**Frist name cannot blank'
+
+      //   break
+      // case "last_name":
+      //   error.last_nameError =
+      //    value.length > 0 ? "" : '**Last name cannot blank'
+      //   break;
+      // case "email":
+      //   error.emailError =
+      //     validEmailRegex.test(value)
+      //       ? ''
+      //       : '**Email is not valid!';
+      //   break;
+      // case "password":
+      //   error.passwordError =
+      //     value.length > 2
+      //       ? ''
+      //       : 'password is not valid!';
+      //   break;
+      // default:
+      //   break;
+    }
+    this.setState({ error, [e.target.name]: e.target.value })
+    //console.log(this.state.error)
 
 
-    this.setState({ [e.target.name]: e.target.value })
 
-    console.log("fbd")
   }
+  // checkphone=(e)=>{
+  //  this.setState({value:e.target.value})
+  //  console.log(e.target.value)
+  // }
 
-  togglePasword = () => {
-    const { isPasswordShow } = this.state
-    this.setState({ isPasswordShow: !isPasswordShow })
-  }
+  // validateForm = (error) => {
+  //   let valid = true;
+  //   //console.log(Object.values(error))
+  //   Object.values(error).forEach(
+  //     // if we have an error string set valid to false
+  //     (val) => val.length > 0 && (valid = false), (val) => {
+
+  //     }
+
+
+  //   );
+  //   return valid;
+  // }
+
+  // togglePasword = () => {
+  //   const { isPasswordShow } = this.state
+  //   this.setState({ isPasswordShow: !isPasswordShow })
+  // }
   dataPost = () => {
     axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/index.php/PharmaApi/registration", JSON.stringify(this.state))
       .then(res => {
@@ -50,99 +110,100 @@ class Signup extends Component {
       .catch(err => console.log(err.message))
     console.log(this.state)
   }
-  // validation = () => {
-  //   let first_nameError = "";
-  //   let last_nameError = "";
-  //   let emailError = "";
-  //   let passwordError = "";
-  //   let phoneError = ""
+blankChack=()=>{
 
-  //   // email check
-  //   const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-  //   const pattern = validEmailRegex.test(this.state.email)
-  //   if (!pattern) {
-  //     emailError = "not valid"
+
+  let fristname_blank=""
+  let lastname_blank=""
+  let phone_blank=""
+  let email_blank=""
+  let password_blank=""
+  //let show=true
+
+
+  if(!this.state.first_name){
+    fristname_blank = "**Frist name blank"}
+
+    if(!this.state.last_name){
+      lastname_blank = "**Last name blank"}
+
+      if(!this.state.last_name){
+      password_blank = "**Password blank"}
+
+      if(!this.state.email){
+        email_blank = "**email blank"}
+        else{
+          if(validEmailRegex.test(this.state.email)){
+            email_blank = " "
+          //return show
+          }else{
+            email_blank = " **email invalid";
+          }
+        }
+
+    if(!this.state.phone){
+      phone_blank="phone blank"
+    }else{
+      if(isValidPhoneNumber(this.state.phone)){
+        phone_blank="hhhh"
+
+      }
+      phone_blank="invalide phone "
+    }
+  // }else{
+  //   if(this.state.first_name.length>1){
+  //     fristname_blank="hhh"
   //   }
-
-  //   //   passwordword check
-  //   const validpassword = RegExp()
-  //   const passwordpattern = validpassword.test(this.state.password)
-  //   if (!this.state.password) {
-  //     passwordError = "empty"
-  //   } else {
-  //     if (!passwordpattern) {
-  //       passwordError = "not password valid"
-  //     }
-  //   }
-
-  //   //phone number check
-  //   const validPhone = RegExp(/^[+91]^[7-9]\d{11}$/);
-  //   const phonepattern = validPhone.test(this.state.phone)
-
-  //   if (!this.state.phone) {
-  //     phoneError = "enter phone number"
-  //   } else {
-  //     if (!phonepattern) {
-  //       phoneError = "only number"
-  //     } else if (passwordpattern === 10) {
-  //       phoneError = "length 10"
-  //     }
-  //   }
-
-  //   if (!this.state.first_name) {
-  //     first_nameError = "name blank"
-  //   }
-  //   if (!this.state.last_name) {
-  //     last_nameError = " last name blank"
-  //   }
-
-  //   if (first_nameError || last_nameError || emailError || passwordError || phoneError) {
-  //     this.setState({ first_nameError, last_nameError, emailError, passwordError, phoneError })
-  //     return false
-  //   }
-  //   return true
-
   // }
+
+  if (fristname_blank || phone_blank || lastname_blank|| email_blank || password_blank) {
+        this.setState({ fristname_blank, phone_blank,lastname_blank,email_blank,password_blank })
+         return false
+      }
+       return true
+}
+
   handleSubmit = (e) => {
-    //console.log(this.state.first_name)
-    const { first_name, last_name, email, phone, password, errors } = this.state
-    //alert("ji")
+   
+
     e.preventDefault();
-    this.dataPost()
+   if( this.blankChack()){
+    <Redirect to='/thankyou'></Redirect>
+      this.props.history.push(`/thankyou`);
+
+   }
+    //  this.dataPost()
     //const isvalidate = this.validation();
-    // if(isvalidate){
-    // this.dataPost()
-    console.log(this.state)
-    //   <Redirect to='/thankyou'></Redirect>
-    // this.props.history.push(`/thankyou`);
+    //if (this.validateForm(this.state.error)) {
+    
+     
+      console.log(this.state);
+    //       <Redirect to='/thankyou'></Redirect>
+    //  this.props.history.push(`/thankyou`);
+   // }
+   
 
     // this.setState({show:true})
   }
 
-
+  //  PhoneAdapter = ({ input }) => (
+  //     <PhoneInput value={input.value.value} onChange={value => input.onChange(value)} />
+  // )
 
   render() {
-  
+    // const { error } = this.state;
+    console.log(this.state.fristname_blank)
     return (
+
       <Fragment>
+
         <nav className="nav_sec nav_transparent" id="sticky-wrap-">
           <div className="container">
             <div className="nav_inner">
               <div className="logo_area">
                 <div className="logo_box"> <a className="" href="index.html"><img src={logo} alt="" /></a> </div>
               </div>
-              {/* <!-- <div class="nav_area">
-        <div class="stellarnav">
-          <ul>
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="about-us.html">New Questions</a></li>
-            <li><a href="">Question Bank</a></li>
-            <li><a href="">My Progress</a></li>
-            <li><a href="">Flagged Questions</a></li>
-            <li><a href="">Log out</a></li>
-          </ul>
-        </div>
-      </div> --> */}
+
             </div>
           </div>
         </nav>
@@ -155,80 +216,89 @@ class Signup extends Component {
               <h3>Sign up</h3>
               <form className="signup_form" onSubmit={this.handleSubmit}>
                 <div className="row">
-               
+
                   <div className="col-md-12">
                     <div className="form-group">
-                      <input type="text" name="first_name" className="form-control" placeholder="frist Name" onChange={this.handelChange} value={this.state.first_name} />
-
+                      <input type="text" name="first_name" className="form-control" placeholder="Frist Name" value={this.state.first_name} onChange={this.handelChange} />
+                      {/* {error.first_nameError.length > 0 &&
+                        <span className='error' style={{color: "red", display: "inherit",textAlign:"left" }} >{error.first_nameError}</span>} */}
+                        {(this.state.first_name.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.fristname_blank}</span>}
                     </div>
+
                   </div>
+
                   <div className="col-md-12">
                     <div className="form-group">
                       <input type="text" name="last_name" className="form-control" placeholder="Last Name" value={this.state.last_name} onChange={this.handelChange} />
+                      {/* {error.last_nameError.length > 0 &&
+                        <span className='error' style={{ color: "red" }}>{error.last_nameError}</span>} */}
+                        {(this.state.last_name.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.lastname_blank}</span>}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" name="email" className="form-control" placeholder="Email" value={this.state.email}  onChange={this.handelChange}/>
+                      <input type="text" name="email" className="form-control" placeholder="Email" value={this.state.email} onChange={this.handelChange} />
+                      {/* {error.emailError.length > 0 &&
+                        <span className='error' style={{ color: "red",display: "inherit",textAlign:"left" }}>{error.emailError}</span>} */}
+                    <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.email_blank}</span>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handelChange} />
+                      <input type="password" name="password1" className="form-control" placeholder="Password"
+                        value={this.state.password} onChange={this.handelChange} autoComplete="off" />
+                      {/* {error.passwordError.length > 0 &&
+                        <span className='error' style={{ color: "red" }}>{error.passwordError}</span>} */}
+                         {(this.state.password.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.password_blank}</span>}
                     </div>
                   </div>
-                  <div class="col-md-12">
+                  {/* <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" name="phone" className="form-control" placeholder="Phone Number"  value={this.state.phone} onChange={this.handelChange}  />
+                      <Input
+                  
+                      className="form-control"
+                        name="phone"
+                        placeholder="Enter phone number"
+                        value={this.state.phone} 
+                        onChange={ phone => this.setState({ phone })}/>
                     </div>
+                    {  (this.state.phone ? (isValidPhoneNumber(this.state.phone) ? undefined :<span style={{color: "red", display: "inherit",textAlign:"left" }}>'Invalid phone number'</span>) : '')}
                   </div>
-                  <div class="col-md-12">
-              <div class="form-group btn_box">
-                <button type="submit" class="btn btn_f_submit blue_btn_comman">Submit</button>
-              </div>
-              </div>
+                  {/* {(this.state.phone.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.phone_blank}</span>} */}
+                  {/* <span>{this.state.phone_blank}</span>  */}
 
-
+                  <div class="col-md-12">
+                    <div class="form-group">
+                    <PhoneInput
+                  
+                  className="form-control"
+                    name="phone"
+                    placeholder="Enter phone number"
+                    value={this.state.phone} 
+                    onChange={ phone => this.setState({ phone })}/>
+                     <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.phone_blank}</span>
+                      </div>
+                      </div>
+                
+                   
+                  <div class="col-md-12">
+                    <div class="form-group btn_box">
+                      <button type="submit" className="btn btn_f_submit blue_btn_comman">Submit</button>
+                    </div>
+                  </div>
+               
                 </div>
+
               </form>
-              {/* <!--  <a href="" class="thanks_continue_btn blue_btn_comman">Continue</a> --> */}
+
+
             </div>
           </div>
         </section>
 
 
 
-        {/* my work */}
-        {/* <div className="sign_up">
-                    <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <input type="text" placeholder="Frist Name" name="first_name" required value={this.state.first_name} onChange={this.handelChange} /> <br></br>
 
-                            {errors.first_name.length > 0 &&
-                                <span className='error'>{errors.first_name}</span>}
-                        </div>
-                        <div>
-                            <input type="text" placeholder=" Last Name" name="last_name" required value={this.state.last_name} onChange={this.handelChange} /><br></br>
-                            {errors.last_name.length > 0 &&
-                                <span className='error'>{errors.last_name}</span>}
-                        </div>
-                        <div>
-                            <input type="email" placeholder=" Email" name="email" required value={this.state.email} onChange={this.handelChange} /><br></br>
-                            {errors.email.length > 0 &&
-                                <span className='error'>{errors.email}</span>}
-                        </div>
-                        <div>
-                            <input type="text" placeholder="123-45-678" name="phone" required value={this.state.phone} onChange={this.handelChange} /><br></br>
-                            {errors.phone.length > 0 &&
-                                <span className='error'>{errors.phone}</span>}
-                        </div>
-                        <input type="text" placeholder=" Password" name="password" required value={this.state.password} onChange={this.handelChange} /> <br></br>
-                        <button type="submit" className="btn btn-primary" value="submit"   >
-                            login </button>
-
-                    </form>
-                   
-                </div> */}
         <Footer />
         {/* <a href="javascript:void(0)" id="scrollup"><i class="fa fa-angle-up" aria-hidden="true"></i></a>  */}
       </Fragment>

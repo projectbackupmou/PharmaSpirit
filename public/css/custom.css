@@ -281,6 +281,12 @@ img
     font-size: 16px;
     color: #811529;
     font-weight: 600;
+    transition-duration: 0.3s;
+}
+.nav_sec .stellarnav > ul > li > a:hover
+{
+  color: #581e9a;
+  transition-duration: 0.3s;
 }
 .nav_sec .stellarnav > ul > li:last-child > a
 {
@@ -430,8 +436,8 @@ img
 }
 .l_cate_box
 {
-    border: 1px solid #85affd;
-    background-color: #85affd;
+    border: 1px solid transparent;
+    background-color: #3b80e1;
     padding: 25px 20px;
     height: 100%;
     display: flex;
@@ -465,9 +471,11 @@ img
 }
 .l_cate_box_main a p
 {
-    color: #000;
+        color: #fff;
     font-weight: 600;
     margin: 0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
 }
 .l_cate_box_main .l_cate_icon
 {
@@ -475,7 +483,7 @@ img
 }
 /* Ripple effect */
 .ripple:hover {
-  background: #85affd radial-gradient(circle, transparent 1%, #85affd 1%) center/10000%;
+  /*background: #85affd radial-gradient(circle, transparent 1%, #85affd 1%) center/10000%;*/
 }
 .ripple:active {
   background-color: #047ab6;
@@ -721,6 +729,8 @@ img
 .radio-custom-label {
     position: relative;
     outline: none;
+        color: #000;
+    font-size: 17px;
 }
 
 .radio-custom + .radio-custom-label:before {

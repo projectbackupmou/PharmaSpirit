@@ -410,6 +410,12 @@ display: flex;
   border: 1px solid rgba(0, 160, 80, 0);
 } 
 /*=== end   landing_home_sec for menu=====*/
+/* .signup_form .error
+{
+  color: red;
+  text-align: left;
+  display: inherit;
+} */
 
 /*========== New Question Start ============*/
 

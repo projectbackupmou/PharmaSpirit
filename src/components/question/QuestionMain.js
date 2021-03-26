@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from "../Navbar"
 import Footer from '../Footer'
+import axios from "axios"
 
 import commonTitleBg from "../../images/common-title-bg.png"
 import flPuIcon from "../../images/fl-qu-icon.png"
@@ -48,6 +49,21 @@ export default class QuestionMain extends Component {
             score: 0
         }
     }
+
+    
+    componentDidMount() {
+        axios.get(`https://elvirainfotechcloud.com/questionbank/pharmasprit/Users/QuestionOption_Controller/getQuestionType/2`)
+            .then(res => {
+                 console.log(typeof(res.data))
+               // this.setState({ question_list: res.data.result_data})
+  
+            }).catch(err => {
+                console.log(err)
+                this.setState({ err: "data not show" })
+            })
+        
+    }
+  
 
     nextstep = (step) => {
         this.setState({
