@@ -41,14 +41,16 @@ class Signup extends Component {
 
 
   handelChange = (e) => {
-    const { error } = this.state
-
-    const { name, value } = e.target;
-    // console.log(e.target.value)
     e.preventDefault();
-    this.setState({ name: value })
+     this.setState({  [e.target.name]: e.target.value })
+    // const { error } = this.state
+
+    // const { name, value } = e.target;
+    // console.log(e.target.value)
+    // e.preventDefault();
+    // this.setState({ name: value })
     // this.validation();
-    switch (name) {
+    // switch (name) {
       // case "first_name":
       //   error.first_nameError =
       //     value.length > 0 ? "" : '**Frist name cannot blank'
@@ -72,8 +74,8 @@ class Signup extends Component {
       //   break;
       // default:
       //   break;
-    }
-    this.setState({ error, [e.target.name]: e.target.value })
+    // }
+   
     //console.log(this.state.error)
 
 
@@ -103,9 +105,9 @@ class Signup extends Component {
   //   this.setState({ isPasswordShow: !isPasswordShow })
   // }
   dataPost = () => {
-    axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/index.php/PharmaApi/registration", JSON.stringify(this.state))
+    axios.post("https://elvirainfotechcloud.com/pharmaspirit/PharmaApi/registration", JSON.stringify(this.state))
       .then(res => {
-        console.log(res)
+        console.log(res.data)
       })
       .catch(err => console.log(err.message))
     console.log(this.state)
@@ -165,9 +167,10 @@ blankChack=()=>{
 
   handleSubmit = (e) => {
    
-
+    this.dataPost();
     e.preventDefault();
    if( this.blankChack()){
+    
     <Redirect to='/thankyou'></Redirect>
       this.props.history.push(`/thankyou`);
 
@@ -192,7 +195,7 @@ blankChack=()=>{
 
   render() {
     // const { error } = this.state;
-    console.log(this.state.fristname_blank)
+  //  console.log(this.state.fristname_blank)
     return (
 
       <Fragment>
@@ -245,13 +248,13 @@ blankChack=()=>{
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="password" name="password1" className="form-control" placeholder="Password"
+                      <input type="password" name="password" className="form-control" placeholder="Password"
                         value={this.state.password} onChange={this.handelChange} autoComplete="off" />
-                      {/* {error.passwordError.length > 0 &&
-                        <span className='error' style={{ color: "red" }}>{error.passwordError}</span>} */}
-                         {(this.state.password.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.password_blank}</span>}
+                    {(this.state.password.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.password_blank}</span>}
                     </div>
                   </div>
+                
+
                   {/* <div class="col-md-12">
                     <div class="form-group">
                       <Input

@@ -1,18 +1,13 @@
 import React, { Component, Fragment } from 'react'
 // import "../App.css"
- import axios from "axios"
+import axios from "axios"
 // import { Link } from "react-router-dom"
 import Bowser from "bowser";
-import { v4 as uuidv4 } from 'uuid';
-
-// import Footer from './Footer'
+import expired_account_icon from "../images/expired_account_icon.png"
 import mainBanner from "../images/bg_new.jpg"
-//import SuccessModel from "./modal/SuccessModel";
+
 import logo from "../images/logo.png"
 import Footer from './Footer'
-
-
-
 
 class Welcome extends Component {
     constructor(props) {
@@ -21,21 +16,15 @@ class Welcome extends Component {
         this.state = {
             username: "",
             password: "",
-            id:uuidv4(),
-         blank_username:"",
-         token:'',
-         browser: {
-            name: "Chrome",
-            version: "11.0"
-          },
-          os: {
-            name: "Windows",
-            version: "NT 6.3",
-            versionName: "8.1"
-          },
-          platform: {
-            type: "desktop"
-          },
+            browser_name: "",
+            cookie_id: "",
+            os_name: "",
+            os_version: "",
+            os_version_name: "",
+            plateform: "",
+            status: "",
+            check:""
+
 
 
         }
@@ -43,153 +32,229 @@ class Welcome extends Component {
     handelChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-          
+
         })
-       
+
     }
 
-    getCookies=()=>{
-        var cookiesArray = document.cookie.split(";")
-        //console.log(cookiesArray)
-        for (var i=0 ;i<cookiesArray.length;i++){
-            var nameValueArray = cookiesArray[i].split("=");
-          // console.log( nameValueArray)
-            // console.log("value   " + nameValueArray[1])
-            // console.log("name   " +  nameValueArray[0])
-            if(nameValueArray[0].trim()=="browsername")
-          
-            {
-                if(nameValueArray[1]!=this.state.browser.name){
-                    console.log("hi")
+
+    getCheck = () => {
+     
+        var apidetail = { username: this.state.username, password: this.state.password, cookie_id: "8", browser_name: "", version: "", os_name: "", os_version: "", os_version_name: "", plateform: "" };
+        axios.post("https://elvirainfotechcloud.com/pharmaspirit/Check_Session_Controller/check_session", (apidetail))
+            .then(res => {
+                console.log(res.data)
+
+                this.setState({ status: res.data.status })
+
+                if (this.state.status === true) {
+                    //alert("contact to admin")
+                   this.setState({check:"contact to admin"})
+                   console.log(this.state.check)
+                } else {
+                    if (this.state.status === false) {
+
+                        var result = Bowser.parse(window.navigator.userAgent)
+                        //   let name =  result.browser.name 
+                        // console.log(result)
+                        document.cookie = "cookie_id=8"
+
+                        if (result.browser.name) {
+                            document.cookie = `browser_name = ${result.browser.name}`
+                        }
+                        if (result.browser.version) {
+                            document.cookie = `version = ${result.browser.version}`
+                            this.setState({ version: result.browser.version })
+                        }
+                        if (result.os.name) {
+                            document.cookie = `os_name = ${result.os.name}`
+                        }
+                        if (result.os.version) {
+                            document.cookie = `os_version = ${result.os.version}`
+                        }
+                        if (result.os.versionName) {
+                            document.cookie = `os_version_name = ${result.os.versionName}`
+                        }
+                        if (result.platform.type) {
+                            document.cookie = `plateform = ${result.platform.type}`
+                        }
+                        //console.log((document.cookie))
+
+
+                        var cookie_id = this.getCookie('cookie_id');
+                        var browser_name = this.getCookie('browser_name');
+                        var version = this.getCookie('version');
+                        var os_name = this.getCookie('os_name');
+                        var os_version = this.getCookie('os_version');
+                        var os_version_name = this.getCookie('os_version_name');
+                        var plateform = this.getCookie('plateform');
+
+                        // this.setState({ apidetails:username:"shankar@gmail.com", password:"1234", cookie_id:cookie_id,browser_name:browser_name,version:version,os_name:os_name,os_version:os_version,os_version_name:os_version_name,plateform:plateform})
+                        var apidetail = { username: this.state.username, password: this.state.password, cookie_id: cookie_id, browser_name: browser_name, version: version, os_name: os_name, os_version: os_version, os_version_name: os_version_name, plateform: plateform };
+                        //console.log(apidetail)
+                  
+                        axios.post("https://elvirainfotechcloud.com/pharmaspirit/Check_Session_Controller/add_session", (apidetail))
+                            .then(res => {
+                                console.log(res.data)
+                                //this.setState({status:res.data.status})
+                                //console.log(this.state.id)
+
+
+                            })
+                            .catch(err => console.log(err.message))
+                    }
+                    
                 }
-                else{
-                    console.log("hhhi")
+                if (this.state.status === null){
+                    this.setState({check:"email doesnot match"})
                 }
+
+
+            })
+            .catch(err => console.log(err.message))
+
+
+    }
+    getCookie = (cname) => {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
             }
         }
+        return "";
     }
 
-    setCookies=()=>{
+
+
+
+    setCookies = () => {
+        alert("hhhh")
         //console.log(Bowser.parse(window.navigator.userAgent));
 
         var result = Bowser.parse(window.navigator.userAgent)
-          //let name =  result.browser.name 
-        //console.log(result)
-        if(result.browser.name){
-            document.cookie = `browsername = ${result.browser.name}`   
+        //   let name =  result.browser.name 
+        // console.log(result)
+        document.cookie = "cookie_id=8"
+
+        if (result.browser.name) {
+            document.cookie = `browser_name = ${result.browser.name}`
         }
-        if(result.browser.version){
-            document.cookie = `browserversion = ${result.browser.version}`   
+        if (result.browser.version) {
+            document.cookie = `version = ${result.browser.version}`
+            this.setState({ version: result.browser.version })
         }
-        if(result.os.name ){
-            document.cookie = `osname = ${result.os.name}`   
+        if (result.os.name) {
+            document.cookie = `os_name = ${result.os.name}`
         }
-        if(result.os.version){
-            document.cookie = `osversion = ${result.os.version}`   
+        if (result.os.version) {
+            document.cookie = `os_version = ${result.os.version}`
         }
-        if(result.platform.type){
-            document.cookie = `platformtype = ${result.platform.type}`   
+        if (result.os.versionName) {
+            document.cookie = `os_version_name = ${result.os.versionName}`
         }
-
-       
-        // var x = cookies.getItem(name)
-        // console.log(x)
-        // if (this.state.browser.name===x){
-        //     alert("null")
-        // }
+        if (result.platform.type) {
+            document.cookie = `plateform = ${result.platform.type}`
+        }
+        //console.log((document.cookie))
 
 
-     
-        // var result = bowser.getParser(window.navigator.userAgent);
-        // console.log(result);
-        
-      
-        // document.write("You are using " + result.parsedResult.browser.name +
-        //                " v" + result.parsedResult.browser.version + 
-        //                " on " + result.parsedResult.os.name + "os version" +result.parsedResult.os.versionName);
+        var cookie_id = this.getCookie('cookie_id');
+        var browser_name = this.getCookie('browser_name');
+        var version = this.getCookie('version');
+        var os_name = this.getCookie('os_name');
+        var os_version = this.getCookie('os_version');
+        var os_version_name = this.getCookie('os_version_name');
+        var plateform = this.getCookie('plateform');
 
-       //document.cookie = "username=John Doe";
-    
-         //console.log(browser);
-        // console.log(browser.os);
-       }
-    
+        // this.setState({ apidetails:username:"shankar@gmail.com", password:"1234", cookie_id:cookie_id,browser_name:browser_name,version:version,os_name:os_name,os_version:os_version,os_version_name:os_version_name,plateform:plateform})
+        var apidetail = { username: this.state.username, password: this.state.password, cookie_id: cookie_id, browser_name: browser_name, version: version, os_name: os_name, os_version: os_version, os_version_name: os_version_name, plateform: plateform };
+        //console.log(apidetail)
 
-    
+        axios.post("https://elvirainfotechcloud.com/pharmaspirit/checksession", (apidetail))
+            .then(res => {
+                 console.log(res.data)
+                this.setState({ status: res.data.status })
 
-
-
-
-    handleSubmit = (e, val) => {
-       
-        console.log(val)
-       // e.preventDefault();
-     if(document.cookie){
-          
-        this.setCookies();
-        this.getCookies();
-
-       }
-    //   else{
-    //       alert("gggg")
-    //   }
-        
-       
-
-   
-      
-    }
-      
-        // let blank_username=""
-        // if (this.state.username.length>0) {
-        //     //alert("jk")
-        //      blank_username= ""
-        //        }
-        //        else{
-        //         blank_username="blank"
-        //        }
-        //        if (blank_username ) {
-        //             this.setState({ blank_username })
+                if (this.state.status === true) {
                    
-        //           }
-             
-        // this.setState({
-        //     successModelOpen: true,
-        // })
-        // e.preventDefault();
+                    this.setState({ browser_name: res.data.result.browser_name, version: res.data.result.version, cookie_id: res.data.result.cookie_id, os_name: res.data.result.os_name, os_version: res.data.result.os_version, os_version_name: res.data.result.os_version_name, plateform: res.data.result.plateform })
 
-        // axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/Login_Controller/newLogin", JSON.stringify(this.state))
-        //     .then(res => {
-        //        console.log(res.data)
-        //         // let resData
-        //          //this.setState({ token: res.data.data.token })
-        //          //localStorage.setItem('token', this.state.token);
-        //         // console.log(this.state.token)
+                    if (this.state.cookie_id === cookie_id && this.state.browser_name === browser_name && this.state.version === version && this.state.os_version === os_version && this.state.os_name === os_name && this.state.os_version_name === os_version_name && this.state.plateform === plateform) {
+                        alert("login done")
+                        this.setState({check:"login done"})
+                        console.log(this.state.check)
 
-        //     })
-        //     .catch(err => console.log(err.message))
-        //console.log(this.state)
+                    }
+                    else {
+                       // alert("contact to admin")
+                       this.setState({check:"contact to admin"})
+                    }
 
-    
+                }
+                if (this.state.status === null){
+                    this.setState({check:"email doesnot match"})
+                }
 
-    // componentDidMount() {
-    //     axios.get("https://elvirainfotechcloud.com/questionbank/admin/index.php/api/Student/login")
-    //         .then(res => {
-    //             console.log(res)
-    //             this.setState({ testData: res.data })
+            })
+            .catch(err => console.log(err.message))
 
-    //         }).catch(err => {
-    //             console.log(err)
-    //             this.setState({ err: "data not show" })
-    //         })
-    // }
+ }
+
+handleSubmit = (e, val) => {
+      e.preventDefault();
+       if (document.cookie) {
+        this.setCookies();
+    }
+        else {
+         this.getCheck() }
+    }
+
+    // let blank_username=""
+    // if (this.state.username.length>0) {
+    //     //alert("jk")
+    //      blank_username= ""
+    //        }
+    //        else{
+    //         blank_username="blank"
+    //        }
+    //        if (blank_username ) {
+    //             this.setState({ blank_username })
+
+    //           }
+
+    // this.setState({
+    //     successModelOpen: true,
+    // })
+    // e.preventDefault();
+
+    // axios.post("https://elvirainfotechcloud.com/questionbank/pharmasprit/Login_Controller/newLogin", JSON.stringify(this.state))
+    //     .then(res => {
+    //        console.log(res.data)
+    //         // let resData
+    //          //this.setState({ token: res.data.data.token })
+    //          //localStorage.setItem('token', this.state.token);
+    //         // console.log(this.state.token)
+
+    //     })
+    //     .catch(err => console.log(err.message))
+    //console.log(this.state)
+
+
+
 
     render() {
 
         // let successModelClose = () => { this.setState({ successModelOpen: false }) }
-       
+
         return (
-           
+
             <>
 
                 <nav class="nav_sec nav_transparent" id="sticky-wrap-">
@@ -206,35 +271,35 @@ class Welcome extends Component {
                 <section class="landing_home_sec vh_height" style={{ "background": `url(${mainBanner})` }}>
                     <div class="container">
                         <div class="row">
-                        <div class="col-lg-7 col-md-12 align-items-center d-flex">
-                           
+                            <div class="col-lg-7 col-md-12 align-items-center d-flex">
+
                                 <div class="member_signup_left">
-                                <h2>This service is <strong>ONLY</strong> available to PharmaSpirit MCQ Pre Course participants</h2>
+                                    <h2>This service is <strong>ONLY</strong> available to PharmaSpirit MCQ Pre Course participants</h2>
                                     <a href="" class="register_btn blue_btn_comman">Register</a>
-                               
+
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-12 md_res_mar_top_30">
                                 <div class="member_signup_right">
                                     <h3>PharmaSpirit Members</h3>
-                                    <form action="" class="signup_form"    onSubmit={this.handleSubmit(this.state.id)} >
+                                    <form action="" class="signup_form" onSubmit={this.handleSubmit} >
                                         <div class="row">
                                             <div class="col-md-12">
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" required name="username" placeholder="Username" value={this.state.username}  onChange={this.handelChange}/>
-                                                       {/* <span>{this.state.blank_username}</span> */}
+                                                        <input type="text" class="form-control" required name="username" placeholder="Username" value={this.state.username} onChange={this.handelChange} />
+                                                        {/* <span>{this.state.blank_username}</span> */}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" name="password" required placeholder="Password" value={this.state.password} onChange={this.handelChange}/>
+                                                        <input type="password" class="form-control" name="password" required placeholder="Password" value={this.state.password} onChange={this.handelChange} />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group btn_box">
-                                                        <button type="submit" class="btn btn_f_submit blue_btn_comman" style={{ "width": "100%" }}>Login</button>
+                                                        <button type="submit" class="btn btn_f_submit blue_btn_comman" data-toggle="modal" data-target="#expired_account_modal" style={{ "width": "100%" }}>Login</button>
                                                     </div>
                                                     <div class="form-group btn_box">
                                                         <button type="submit" class="btn btn_f_submit m_signup_btn">Signup</button>
@@ -254,7 +319,29 @@ class Welcome extends Component {
                     </div>
 
                 </section>
-                <Footer/>
+
+                <div class="modal" id="expired_account_modal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="enq_modal_body">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="ex_acc_modal_top text-center">
+                                        <img src={expired_account_icon} alt="" />
+                                        <div class="ex_acc_modal_bottom text-center">
+                                            <p style={{ textTransform: 'capitalize'}}>{this.state.check}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <Footer />
             </>
         )
     }
