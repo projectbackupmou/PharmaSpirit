@@ -22,7 +22,7 @@ class Welcome extends Component {
             os_version: "",
             os_version_name: "",
             plateform: "",
-            status: "",
+            status: null,
             check:""
 
 
@@ -105,9 +105,7 @@ class Welcome extends Component {
                     }
                     
                 }
-                if (this.state.status === null){
-                    this.setState({check:"email doesnot match"})
-                }
+             
 
 
             })
@@ -135,7 +133,7 @@ class Welcome extends Component {
 
 
     setCookies = () => {
-        alert("hhhh")
+      //  alert("hhhh")
         //console.log(Bowser.parse(window.navigator.userAgent));
 
         var result = Bowser.parse(window.navigator.userAgent)
@@ -181,7 +179,7 @@ class Welcome extends Component {
             .then(res => {
                  console.log(res.data)
                 this.setState({ status: res.data.status })
-
+                   console.log(this.state.status)
                 if (this.state.status === true) {
                    
                     this.setState({ browser_name: res.data.result.browser_name, version: res.data.result.version, cookie_id: res.data.result.cookie_id, os_name: res.data.result.os_name, os_version: res.data.result.os_version, os_version_name: res.data.result.os_version_name, plateform: res.data.result.plateform })
@@ -192,15 +190,13 @@ class Welcome extends Component {
                         console.log(this.state.check)
 
                     }
-                    else {
-                       // alert("contact to admin")
-                       this.setState({check:"contact to admin"})
-                    }
+                 
+                }
+                else {
+                   // alert("contact to admin")
+                   this.setState({check:"contact to admin"})
+                }
 
-                }
-                if (this.state.status === null){
-                    this.setState({check:"email doesnot match"})
-                }
 
             })
             .catch(err => console.log(err.message))
