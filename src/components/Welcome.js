@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 // import "../App.css"
 import axios from "axios"
-// import { Link } from "react-router-dom"
+ import { Link } from "react-router-dom"
 import Bowser from "bowser";
-import expired_account_icon from "../images/expired_account_icon.png"
+//import expired_account_icon from "../images/expired_account_icon.png"
 import mainBanner from "../images/bg_new.jpg"
 
 import logo from "../images/logo.png"
@@ -23,7 +23,8 @@ class Welcome extends Component {
             os_version_name: "",
             plateform: "",
             status: null,
-            check:""
+            check:"",
+            blank_username:""
 
 
 
@@ -133,7 +134,7 @@ class Welcome extends Component {
 
 
     setCookies = () => {
-      //  alert("hhhh")
+       //alert("hhhhhgg")
         //console.log(Bowser.parse(window.navigator.userAgent));
 
         var result = Bowser.parse(window.navigator.userAgent)
@@ -181,21 +182,27 @@ class Welcome extends Component {
                 this.setState({ status: res.data.status })
                    console.log(this.state.status)
                 if (this.state.status === true) {
-                   
+                  // alert("hhhdd")
                     this.setState({ browser_name: res.data.result.browser_name, version: res.data.result.version, cookie_id: res.data.result.cookie_id, os_name: res.data.result.os_name, os_version: res.data.result.os_version, os_version_name: res.data.result.os_version_name, plateform: res.data.result.plateform })
 
                     if (this.state.cookie_id === cookie_id && this.state.browser_name === browser_name && this.state.version === version && this.state.os_version === os_version && this.state.os_name === os_name && this.state.os_version_name === os_version_name && this.state.plateform === plateform) {
-                        alert("login done")
+                        //alert("login done")
                         this.setState({check:"login done"})
                         console.log(this.state.check)
 
                     }
+                    else {
+                        //alert("contact to admin")
+                       this.setState({check:"contact to admin"})
+                    }
                  
                 }
                 else {
-                   // alert("contact to admin")
+                    //alert("contact to admin")
                    this.setState({check:"contact to admin"})
                 }
+             
+               
 
 
             })
@@ -204,26 +211,38 @@ class Welcome extends Component {
  }
 
 handleSubmit = (e, val) => {
+    let blank_username=""
+    let blank_password=""
+    if (!this.state.username) {
+        //alert("jk")
+        
+            blank_username="Blank User name"
+    }else{
+        blank_username=" "
+    }
+    if (!this.state.password) {
+        //alert("jk")
+        
+        blank_password="blank password"
+    }else{
+        blank_password=" "   
+    }
+          
+           if (blank_username || blank_password) {
+                this.setState({ blank_username,blank_password })
+
+              }
+            
       e.preventDefault();
        if (document.cookie) {
         this.setCookies();
     }
         else {
          this.getCheck() }
-    }
+   
 
-    // let blank_username=""
-    // if (this.state.username.length>0) {
-    //     //alert("jk")
-    //      blank_username= ""
-    //        }
-    //        else{
-    //         blank_username="blank"
-    //        }
-    //        if (blank_username ) {
-    //             this.setState({ blank_username })
-
-    //           }
+  
+            }
 
     // this.setState({
     //     successModelOpen: true,
@@ -271,7 +290,7 @@ handleSubmit = (e, val) => {
 
                                 <div class="member_signup_left">
                                     <h2>This service is <strong>ONLY</strong> available to PharmaSpirit MCQ Pre Course participants</h2>
-                                    <a href="" class="register_btn blue_btn_comman">Register</a>
+                                    <Link to={"/signup"} class="register_btn blue_btn_comman">Register</Link>
 
                                 </div>
                             </div>
@@ -284,21 +303,27 @@ handleSubmit = (e, val) => {
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" required name="username" placeholder="Username" value={this.state.username} onChange={this.handelChange} />
+                                                        <input type="text" class="form-control"  name="username" placeholder="Username" value={this.state.username} onChange={this.handelChange} />
                                                         {/* <span>{this.state.blank_username}</span> */}
+                                                        <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.blank_username }</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" name="password" required placeholder="Password" value={this.state.password} onChange={this.handelChange} />
+                                                        <input type="password" class="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.handelChange} />
+                                                        <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.blank_password }</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group btn_box">
-                                                        <button type="submit" class="btn btn_f_submit blue_btn_comman" data-toggle="modal" data-target="#expired_account_modal" style={{ "width": "100%" }}>Login</button>
+                                                        {/* <button type="submit" class="btn btn_f_submit blue_btn_comman" data-toggle="modal" data-target="#expired_account_modal" style={{ "width": "100%" }}>Login</button> */}
+                                                        <button type="submit" class="btn btn_f_submit blue_btn_comman" data-toggle="modal" data-target={(this.state.username && this.state.password)? "#expired_account_modal":""} style={{ "width": "100%" }}>Login</button>
+                                                        
                                                     </div>
                                                     <div class="form-group btn_box">
+                                                    <Link to={"/signup"}>
                                                         <button type="submit" class="btn btn_f_submit m_signup_btn">Signup</button>
+                                                    </Link>
                                                     </div>
                                                 </div>
 
@@ -316,15 +341,15 @@ handleSubmit = (e, val) => {
 
                 </section>
 
-                <div class="modal" id="expired_account_modal">
+                 <div class="modal" id="expired_account_modal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="enq_modal_body">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <div class="ex_acc_modal_top text-center">
-                                        <img src={expired_account_icon} alt="" />
-                                        <div class="ex_acc_modal_bottom text-center">
+                                         {/* <img src={expired_account_icon} alt="" />  */}
+                                         <div class="ex_acc_modal_bottom text-center">
                                             <p style={{ textTransform: 'capitalize'}}>{this.state.check}</p>
                                         </div>
 
@@ -333,7 +358,7 @@ handleSubmit = (e, val) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
 
 
 

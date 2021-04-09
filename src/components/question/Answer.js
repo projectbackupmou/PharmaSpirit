@@ -4,17 +4,17 @@ import { Button } from 'react-bootstrap'
 const Answer = (props) => {
 
 
-    let showAnswer = Object.keys(props.answer).map((ans, i) => {
-        return (
-            <div  >
-                <input type="radio" value="" name="" className="radio-custom"
-                    onChange={() => props.checkAnswr(ans)} checked />
-                    <label for="radio-1" className="radio-custom-label">{props.answer[ans]}</label>
+    // let showAnswer = Object.keys(props.answer).map((ans, i) => {
+    //     return (
+    //         <div  >
+    //             <input type="radio" value="" name="" className="radio-custom"
+    //                 onChange={() => props.checkAnswr(ans)} checked />
+    //                 <label for="radio-1" className="radio-custom-label">{props.answer[ans]}</label>
                     
-            </div>
-        )
-    }
-    )
+    //         </div>
+    //     )
+    // }
+   // )
    
     const check = () => {
         // console.log("hi")

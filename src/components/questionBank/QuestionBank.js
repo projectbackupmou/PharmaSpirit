@@ -38,7 +38,7 @@ class QuestionBank extends Component {
 
   render() {
     //  console.log(this.state.question_list.map(i=>{return(i.category_name)}))
-  
+    console.log("qub",this.props.location.state)
     return (
       <>
         <Navbar />

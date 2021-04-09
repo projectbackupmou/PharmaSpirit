@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react'
 // import mainBanner from "../images/home_bg.jpg"
+import { Link, Redirect } from "react-router-dom"
 import new_ques_home from "../images/new_ques_home.png"
 import ques_bank_home from "../images/ques_bank_home.png"
 import my_progress_home from "../images/my_progress_home.png"
 import flagged_ques_home from "../images/flagged_ques_home.png"
 // import { Modal, Button } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+
 import Footer from './Footer'
 // import logo from "../images/logo.png"
 import Navbar from './Navbar'
@@ -17,7 +18,8 @@ export default class Dashboard extends Component {
     super(props)
 
     this.state = {
-      question: []
+      question: [],
+      id:""
 
     }
   }
@@ -28,7 +30,7 @@ export default class Dashboard extends Component {
   componentDidMount() {
     axios.get(`https://elvirainfotechcloud.com/questionbank/pharmasprit/Users/Category_Controller/getType`)
       .then(res => {
-        //console.log(res.data.data)
+        console.log(res.data.data)
         this.setState({ question: res.data.data })
 
       }).catch(err => {
@@ -41,20 +43,22 @@ export default class Dashboard extends Component {
   typeId = (id) => {
 
     console.log(id)
-    axios.get(`https://elvirainfotechcloud.com/questionbank/pharmasprit/Users/QuestionOption_Controller/getQuestionType/${id}`)
-      .then(res => {
-        //console.log(res.data.data)
-        console.log(res)
+  
 
-      }).catch(err => {
-        console.log(err)
-        this.setState({ err: "data not show" })
-      })
+      this.setState({id:this.state.id})
+
+      this.state.question.map(i =>{ return(
+      this.props.history.push({ pathname:`${(i.question_type == "New Question")}` ? "/QuestionMain" :  "/questionBank",state:{ id:id}})
+      
+      
+      )})
+ 
   }
 
 
   render() {
-    console.log(localStorage.getItem('token'))
+    //console.log(localStorage.getItem('token'))
+    const{id}=this.state
     return (
       <Fragment>
         <Navbar />
@@ -65,10 +69,9 @@ export default class Dashboard extends Component {
               <div className="row">
                 {this.state.question.map(i => {
                   return (
+                     <div className="col-lg-3 col-md-6 col-12 l_cate_box_main">
+                      <Link to={{pathname:(i.question_type == "New Question") ? `/QuestionMain` : `/questionBank`,state:{ id:i.id}}}>
 
-                    // <button onClick={() => this.typeId(i.id)}> X </button>
-                    <div className="col-lg-3 col-md-6 col-12 l_cate_box_main">
-                      <Link to={(i.question_type == "New Question") ? "/QuestionMain" : "/questionBank"}>
                         <div className="l_cate_box ripple" onClick={() => this.typeId(i.id)}>
                           <div className="l_cate_box_inner">
                             <div className="l_cate_icon">

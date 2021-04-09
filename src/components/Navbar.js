@@ -23,7 +23,7 @@ class Navbar extends Component {
               <div class="stellarnav">
                 <ul>
 
-                  <li ><Link to={"/signup"}>Home</Link></li>
+                  <li ><Link to={"/dashboard"}>Home</Link></li>
                   {(window.location.pathname == '/QuestionMain') ? null :
                     (<li ><Link to={"/QuestionMain"} >New Questions</Link></li>)}
 

@@ -87,50 +87,8 @@ export default class QuestionMain extends Component {
         return (
             <Fragment>
                <Navbar/>
-                <section className="new-question-sec">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-9 col-md-9 col-sm-12">
-                                <div className="new-question-block win-height">
-                                    <h1>Harold Hobson</h1>
-                                    <div className="new-question-box">
-                                        <h3>What are the objectives of launching the Chandrayaan-2 moon mission?</h3>
-                                        <ul>
-                                            <li>
-                                                <input id="radio-1" className="radio-custom" name="radio-group" type="radio" />
-                                                <label for="radio-1" className="radio-custom-label">To map the surface of the moon.</label>
-                                            </li>
-                                            <li>
-                                                <input id="radio-2" className="radio-custom" name="radio-group" type="radio" />
-                                                <label for="radio-2" className="radio-custom-label">Signature of water-ice on the lunar surface.</label>
-                                            </li>
-                                            <li>
-                                                <input id="radio-3" className="radio-custom" name="radio-group" type="radio" />
-                                                <label for="radio-3" className="radio-custom-label">To collect data on minerals and the formation of rocks.</label>
-                                            </li>
-                                            <li>
-                                                <input id="radio-2" className="radio-custom" name="radio-group" type="radio" />
-                                                <label for="radio-2" className="radio-custom-label">Signature of water-ice on the lunar surface.</label>
-                                            </li>
-
-
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3 col-md-3 col-sm-12">
-                                <div className="new-question-side-bar" >
-                                    <h2 className="common-title" style={{ "backgroundImage": `url(${commonTitleBg})` }}>New Questions</h2>
-                                    <ul className="m-0 p-0">
-                                        <li><a href="#" className="boder-bg-btn fl-qu-btn" style={{ "backgroundImage": `url(${flPuIcon})` }}>Flag this Question</a></li>
-                                        <li><a href="#" className="boder-bg-btn re-pr-btn" style={{ "backgroundImage": `url(${re_pr_icon})` }}>Report a Problem</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+               
+                    
                 <div className="new-question-btn-sec">
                     <div className="container">
                         <div className="row">
@@ -159,7 +117,7 @@ export default class QuestionMain extends Component {
 }
 
 
-{/* <section className="new-question-sec">
+ <section className="new-question-sec">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -193,7 +151,7 @@ export default class QuestionMain extends Component {
 
                         </div>
                     </div>
-                </section> */}
+                </section> 
 
 
             // my work
@@ -223,3 +181,43 @@ export default class QuestionMain extends Component {
             //     )
             //       } 
             // </div>
+
+
+            const fetch = require('node-fetch');
+var allData = []
+
+fetch('https://elvirainfotechcloud.com/pharmaspirit/Users/QuestionOption_Controller/getQuestionTypeCategory/9/2')
+    .then(res => res.text())
+    .then(data  =>{
+        
+        allData = JSON.parse(data);
+        console.log("Question Log  ",allData.data.question)
+        console.log("Answer Log  ",allData.data.answer)
+
+
+  
+    })
+
+
+    
+        //console.log(showquestion)
+    // const id = (this.state.question.map(i => {
+    //          (i.option).map(q =>{
+                 
+  
+              
+                 
+                //  <div className="new-question-box">
+    //       { console.log(" Answer type log ",q.answer_type)
+              
+    //    }
+          
+          
+                    {/* <input id="radio-1" class="radio-custom" name="radio-group" type="radio"  checked onClick={()=>this.matchans(q.answer_type)}
+                    />
+                     <label for="radio-1" class="radio-custom-label"   >{q.title}</label>
+
+                </div> */}
+                
+                // )
+        //}));

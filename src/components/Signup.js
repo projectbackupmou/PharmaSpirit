@@ -22,6 +22,7 @@ class Signup extends Component {
       email: "",
       password: "",
       phone: "",
+      msg:"msg",
       error: {
         first_nameError: '',
         last_nameError: '',
@@ -103,25 +104,26 @@ class Signup extends Component {
   // togglePasword = () => {
   //   const { isPasswordShow } = this.state
   //   this.setState({ isPasswordShow: !isPasswordShow })
-  // }
-  dataPost = () => {
-    axios.post("https://elvirainfotechcloud.com/pharmaspirit/PharmaApi/registration", JSON.stringify(this.state))
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => console.log(err.message))
-    console.log(this.state)
-  }
+  // // }
+  // dataPost = () => {
+  //  // alert("hi")
+  //   axios.post("https://elvirainfotechcloud.com/pharmaspirit/PharmaApi/registration", JSON.stringify(this.state))
+  //     .then(res => {
+  //       console.log(res.data.msg)
+  //       this.setState({msg:res.data.msg})
+      
+    
+  //     })
+  //     .catch(err => console.log(err.message))
+  //   }  
 blankChack=()=>{
-
 
   let fristname_blank=""
   let lastname_blank=""
   let phone_blank=""
   let email_blank=""
   let password_blank=""
-  //let show=true
-
+  //let show=tru
 
   if(!this.state.first_name){
     fristname_blank = "**Frist name blank"}
@@ -129,19 +131,22 @@ blankChack=()=>{
     if(!this.state.last_name){
       lastname_blank = "**Last name blank"}
 
-      if(!this.state.last_name){
+      if(!this.state.password){
       password_blank = "**Password blank"}
 
       if(!this.state.email){
         email_blank = "**email blank"}
-        else{
-          if(validEmailRegex.test(this.state.email)){
+        else if(this.state.email.length>0){
+          email_blank = ""
+        }
+        else if(validEmailRegex.test(this.state.email)){
             email_blank = " "
           //return show
-          }else{
+          }
+          else{
             email_blank = " **email invalid";
           }
-        }
+        
 
     if(!this.state.phone){
       phone_blank="phone blank"
@@ -150,7 +155,7 @@ blankChack=()=>{
         phone_blank="hhhh"
 
       }
-      phone_blank="invalide phone "
+      phone_blank=" "
     }
   // }else{
   //   if(this.state.first_name.length>1){
@@ -160,42 +165,59 @@ blankChack=()=>{
 
   if (fristname_blank || phone_blank || lastname_blank|| email_blank || password_blank) {
         this.setState({ fristname_blank, phone_blank,lastname_blank,email_blank,password_blank })
-         return false
+        
       }
-       return true
+    
+      console.log(this.state.fristname_blank)
+//  if(this.state.fristname_blank && this.state.phone_blank&&this.state.lastname_blank&&this.state.email_blank&&this.state.password_blank ){
+// console.log("jkj")
+//   this.dataPost()
+  
+//   }
+
+if(this.state.first_name && this.state.last_name && this.state.email && this.state.phone && this.state.password){
+  //alert("hh")
+      axios.post("https://elvirainfotechcloud.com/pharmaspirit/PharmaApi/registration", JSON.stringify(this.state))
+       .then(res => {
+         console.log(res.data)
+         console.log(res.data.status)
+         this.setState({msg:res.data.status})
+         if(this.state.msg===false ){
+      // alert("email exit");
+    
+       <Redirect to='/thankyou'></Redirect>
+      this.props.history.push({  pathname:"/thankyou", state: { message: true}});
+
+     }else if(this.state.msg===true){
+     //   alert("new");
+        <Redirect to='/thankyou'></Redirect>
+        this.props.history.push({  pathname:"/thankyou", state: { message: false}});
+     }
+    
+      })
+       .catch(err => console.log(err.message))
+     
+}
+
+  
+  //alert("hi")
+
+ 
+
+        // return 1
+      
+     
 }
 
   handleSubmit = (e) => {
-   
-    this.dataPost();
-    e.preventDefault();
-   if( this.blankChack()){
-    
-    <Redirect to='/thankyou'></Redirect>
-      this.props.history.push(`/thankyou`);
+   e.preventDefault();
+    this.blankChack();
+}
 
-   }
-    //  this.dataPost()
-    //const isvalidate = this.validation();
-    //if (this.validateForm(this.state.error)) {
-    
-     
-      console.log(this.state);
-    //       <Redirect to='/thankyou'></Redirect>
-    //  this.props.history.push(`/thankyou`);
-   // }
-   
 
-    // this.setState({show:true})
-  }
-
-  //  PhoneAdapter = ({ input }) => (
-  //     <PhoneInput value={input.value.value} onChange={value => input.onChange(value)} />
-  // )
 
   render() {
-    // const { error } = this.state;
-  //  console.log(this.state.fristname_blank)
+
     return (
 
       <Fragment>
@@ -217,7 +239,7 @@ blankChack=()=>{
           <div className="container">
             <div className="signup_area">
               <h3>Sign up</h3>
-              <form className="signup_form" onSubmit={this.handleSubmit}>
+              <form className="signup_form"  onSubmit={this.handleSubmit}>
                 <div className="row">
 
                   <div className="col-md-12">
@@ -225,7 +247,7 @@ blankChack=()=>{
                       <input type="text" name="first_name" className="form-control" placeholder="Frist Name" value={this.state.first_name} onChange={this.handelChange} />
                       {/* {error.first_nameError.length > 0 &&
                         <span className='error' style={{color: "red", display: "inherit",textAlign:"left" }} >{error.first_nameError}</span>} */}
-                        {(this.state.first_name.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.fristname_blank}</span>}
+                      <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.fristname_blank}</span>
                     </div>
 
                   </div>
@@ -235,7 +257,7 @@ blankChack=()=>{
                       <input type="text" name="last_name" className="form-control" placeholder="Last Name" value={this.state.last_name} onChange={this.handelChange} />
                       {/* {error.last_nameError.length > 0 &&
                         <span className='error' style={{ color: "red" }}>{error.last_nameError}</span>} */}
-                        {(this.state.last_name.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.lastname_blank}</span>}
+                        <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.lastname_blank}</span>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -243,14 +265,14 @@ blankChack=()=>{
                       <input type="text" name="email" className="form-control" placeholder="Email" value={this.state.email} onChange={this.handelChange} />
                       {/* {error.emailError.length > 0 &&
                         <span className='error' style={{ color: "red",display: "inherit",textAlign:"left" }}>{error.emailError}</span>} */}
-                    <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.email_blank}</span>
+                 <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.email_blank}</span>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <input type="password" name="password" className="form-control" placeholder="Password"
                         value={this.state.password} onChange={this.handelChange} autoComplete="off" />
-                    {(this.state.password.length>0)?"":<span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.password_blank}</span>}
+                    <span style={{color: "red", display: "inherit",textAlign:"left" }}>{this.state.password_blank}</span>
                     </div>
                   </div>
                 

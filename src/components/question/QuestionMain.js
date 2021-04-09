@@ -7,18 +7,15 @@ import commonTitleBg from "../../images/common-title-bg.png"
 import flPuIcon from "../../images/fl-qu-icon.png"
 import re_pr_icon from "../../images/re-pr-icon.png"
 import ch_re_btn_icon from "../../images/ch-re-btn-icon.png"
-//import Question from './Question'
+import Question from './Question'
 
 export default class QuestionMain extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            question: {
-                1: "What is the pointer",
-                2: "syntex of for loop",
-                3: "what is static vaeiavle"
-            },
+            question: [],
+            optionAnswer: [],
             answer: {
                 1: {
                     1: "int x = 5, *p=&x, **q=&p;1",
@@ -43,60 +40,138 @@ export default class QuestionMain extends Component {
                 3: "1"
             },
             correctAnswer: 0,
-            step: 1,
+            step: 0,
             checkResult: 0,
             clickAnswer: 0,
-            score: 0
+            score: 0,
+
         }
     }
 
-    
+
     componentDidMount() {
-        axios.get(`https://elvirainfotechcloud.com/questionbank/pharmasprit/Users/QuestionOption_Controller/getQuestionType/2`)
+        var type = this.props.location.state.id
+        //console.log("qum",this.props.location.state.id)
+        axios.get(`https://elvirainfotechcloud.com/pharmaspirit/Users/QuestionOption_Controller/getQuestionType/${type}`)
             .then(res => {
-                 console.log(typeof(res.data))
-               // this.setState({ question_list: res.data.result_data})
-  
+                console.log(res.data.data);
+                this.setState({ question: res.data.data })
+
             }).catch(err => {
                 console.log(err)
                 this.setState({ err: "data not show" })
             })
-        
+
+
     }
-  
+
 
     nextstep = (step) => {
         this.setState({
             step: step + 1
         })
+        // const showOption = (this.state.question.map(i => {
+        //     return (i.option).map(q =>{console.log(q.answer_type)})
+        
+        // }))
+
     }
     previousstep = (step) => {
         this.setState({
             step: step - 1
         })
     }
-  
+
+    matchans = (id) => {
+        console.log(id)
+
+        // const showO=id.map(v => {
+                 
+        //         return(console.log(v.answer_type))
+        //          })
+
+        // const showO = (this.state.question.map(i => {
+        //     return (i.option)
+
+        // }))
+
+        // const view = showO.map(v => {
+        //     return (v.map(q => { return (q.answer_type) }))
+
+
+        // })
+        // console.log(showO)
+        // view[this.state.step].map(c => {
+        //     if (c[0] === 1) {
+        //         alert("g")
+        //     }
+
+        // })
+
+        // console.log(view[this.state.step])
+    }
+
     render() {
-        // const { score, question, step, answer, clickAnswer, correctAnswer } = this.state
-        // const showanswer= Object.keys(answer).map((ans,i)=>{console.log(ans)})
+        const showquestion = this.state.question.map(i => { return i.question.title })
+        const showOption = (this.state.question.map(i => {
+            return (i.option).map(q =>
+
+
+                <div className="new-question-box">
+                    {/* { console.log("ans",q.answer_type)}   */}
+                    {/*{console.log(("qus",i.question.id))} */}
+                    <input id="radio-1" class="radio-custom" name="radio-group" type="radio" value={q.answer_type}  onClick={ ()=>this.matchans(q.answer_type)}
+                    />
+                    <label for="radio-1" class="radio-custom-label"   >{q.answer_type}</label>
+
+                </div>)
+        }));
+
+
+
+
+
+        const { score, question, step, answer, clickAnswer, correctAnswer } = this.state
+
+        //console.log(JSON.parse(this.state.question))
+
+
         return (
             <>
+
                 <Navbar />
                 <section class="new-question-sec">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                            {/* <Question question={question[step]} /> */}
+
+                                <Question question={showquestion[step]} />
+
+                                <div>
+                                    {showOption[step]}
+
+
+
+                                </div>
+
+
+                                {/*                           
                                 <div class="new-question-block win-height">
                                     <h1>Harold Hobson</h1> 
-                                
-                                  
-                                    <div class="new-question-box">
+                                    </div> */}
+                                {/* <div>
+                              <Question  question={showquestion[step]}/> 
+
+                              </div> */}
+
+                                {/* <div class="new-question-box">
+
+                                 
                                    
                                         <h3>What are the objectives of launching the Chandrayaan-2 moon mission?</h3> 
                                         <p>   </p>
                                         <ul>
-                                        
+                                      
                                             <li>
                                                 <input id="radio-1" class="radio-custom" name="radio-group" type="radio" />
                                                 <label for="radio-1" class="radio-custom-label">To map the surface of the moon.</label>
@@ -114,9 +189,9 @@ export default class QuestionMain extends Component {
                                                 <label for="radio-4" class="radio-custom-label">Signature of water-ice on the lunar surface.</label>
                                             </li>
                                         </ul>
-                                        </div>
-                                    </div>
-                               
+                                        </div>  */}
+
+
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12">
                                 <div class="new-question-side-bar">
@@ -137,9 +212,9 @@ export default class QuestionMain extends Component {
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <div class="prev-check-next-btn">
                                     <ul>
-                                        <li><button class="new-qu-btn" >Previous</button></li>
-                                        <li><button class="new-qu-btn red-btn" >Check</button></li>
-                                        <li><button class="new-qu-btn"  >Next</button></li>
+                                        <li><button class="new-qu-btn" onClick={() => this.previousstep(step)} disabled={(step == 0) ? true : false} >Previous</button></li>
+                                        <li><button class="new-qu-btn red-btn"  >Check</button></li>
+                                        <li><button class="new-qu-btn" onClick={() => this.nextstep(step)} >Next</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -151,7 +226,7 @@ export default class QuestionMain extends Component {
                         </div>
                     </div>
                 </div>
-         
+
 
                 <div class="modal en_modal_comman" id="report_problem_modal">
                     <div class="modal-dialog modal-dialog-centered">
@@ -184,8 +259,8 @@ export default class QuestionMain extends Component {
                 </div>
                 <div>
                     <h1></h1>
-              <a href="" id="scrollup"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-             </div>
+                    <a href="" id="scrollup"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                </div>
                 <div>
                     <Footer />
                 </div>
